@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.pojo.Contract;
-import com.example.demo.repository.ContractRepository;
+import com.example.demo.converter.ContractConverter;
+import com.example.demo.dto.ContractDTO;
 import com.example.demo.service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,12 +20,9 @@ public class GetContractController {
     @Autowired
     ContractService contractService;
 
-    @Autowired
-    ContractRepository repository;
-
     @GetMapping(value = {"/", "/home", "/index"})
     public String index(Model model) {
-        model.addAttribute("contracts", repository.findAll());
+        model.addAttribute("contracts", contractService.findAll());
         return "index";
     }
 
@@ -33,8 +30,8 @@ public class GetContractController {
     @GetMapping(value = {"/getInfo"})
     public String getInfo(@RequestParam(value = "path") String path) {
         try {
-            List<Contract> founded = contractService.findAllInExternalResource(path);
-            repository.saveAll(founded);
+            List<ContractDTO> founded = contractService.findAllInExternalResource(path);
+            contractService.saveAll(ContractConverter.convertToEntity(founded));
         } catch (IOException e) {
             e.printStackTrace();
         }

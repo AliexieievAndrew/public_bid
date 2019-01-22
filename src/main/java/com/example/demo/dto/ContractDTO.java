@@ -1,60 +1,51 @@
-package com.example.demo.pojo;
-import org.hibernate.annotations.Type;
+package com.example.demo.dto;
 
-import javax.persistence.*;
-import java.time.OffsetDateTime;
-import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-@Table(name = "contract")
-public class Contract {
+public class ContractDTO {
 
-    @Id
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
-    @Type(type="uuid-char")
-    private UUID uuid;
+    @JsonProperty("id")
+    private String id;
 
-    @Column(name = "hash")
+    @JsonProperty("hash")
     private String hash;
 
-    @Column(name = "language")
+    @JsonProperty("language")
     private String language;
 
-
-    @Column(name = "description")
+    @JsonProperty("description")
     private String description;
 
-
-    @Column(name = "format")
+    @JsonProperty("format")
     private String format;
 
-    @Column(name = "url")
+    @JsonProperty("url")
     private String url;
 
-    @Column(name = "title")
+    @JsonProperty("title")
     private String title;
 
-    @Column(name = "document_of")
+    @JsonProperty("documentOf")
     private String documentOf;
 
-    @Column(name = "date_published")
-    private OffsetDateTime datePublished;
+    @JsonProperty("datePublished")
+    private String datePublished;
 
-    @Column(name = "document_type")
+    @JsonProperty("documentType")
     private String documentType;
 
-    @Column(name = "date_modified")
-    private OffsetDateTime dateModified;
+    @JsonProperty("dateModified")
+    private String dateModified;
 
-    @Column(name = "related_item")
+    @JsonProperty("relatedItem")
     private String relatedItem;
 
-    public UUID getUuid() {
-        return uuid;
+    public String getId() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getHash() {
@@ -113,11 +104,11 @@ public class Contract {
         this.documentOf = documentOf;
     }
 
-    public OffsetDateTime getDatePublished() {
+    public String getDatePublished() {
         return datePublished;
     }
 
-    public void setDatePublished(OffsetDateTime datePublished) {
+    public void setDatePublished(String datePublished) {
         this.datePublished = datePublished;
     }
 
@@ -129,11 +120,11 @@ public class Contract {
         this.documentType = documentType;
     }
 
-    public OffsetDateTime getDateModified() {
+    public String getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(OffsetDateTime dateModified) {
+    public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
     }
 
@@ -147,8 +138,8 @@ public class Contract {
 
     @Override
     public String toString() {
-        return "Contract{" +
-                "uuid=" + uuid +
+        return "ContractDTO{" +
+                "id='" + id + '\'' +
                 ", hash='" + hash + '\'' +
                 ", language='" + language + '\'' +
                 ", description='" + description + '\'' +
@@ -156,9 +147,9 @@ public class Contract {
                 ", url='" + url + '\'' +
                 ", title='" + title + '\'' +
                 ", documentOf='" + documentOf + '\'' +
-                ", datePublished=" + datePublished +
+                ", datePublished='" + datePublished + '\'' +
                 ", documentType='" + documentType + '\'' +
-                ", dateModified=" + dateModified +
+                ", dateModified='" + dateModified + '\'' +
                 ", relatedItem='" + relatedItem + '\'' +
                 '}';
     }

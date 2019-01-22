@@ -1,8 +1,9 @@
-package com.example.demo.pojo;
+package com.example.demo.dto;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,19 +16,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "data"
 })
 
-public class Data {
+public class DataDTO {
     @JsonProperty("data")
-    private List<Contract> data = null;
+    private List<ContractDTO> data = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("data")
-    public List<Contract> getData() {
+    public List<ContractDTO> getData() {
         return data;
     }
 
     @JsonProperty("data")
-    public void setData(List<Contract> data) {
+    public void setData(List<ContractDTO> data) {
         this.data = data;
     }
 
