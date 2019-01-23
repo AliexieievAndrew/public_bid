@@ -163,28 +163,4 @@ public class Contract {
                 ", relatedItem='" + relatedItem + '\'' +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Contract contract = (Contract) o;
-        return Objects.equals(uuid, contract.uuid) &&
-                Objects.equals(hash, contract.hash) &&
-                Objects.equals(language, contract.language) &&
-                Objects.equals(description, contract.description) &&
-                Objects.equals(format, contract.format) &&
-                Objects.equals(url, contract.url) &&
-                Objects.equals(title, contract.title) &&
-                Objects.equals(documentOf, contract.documentOf) &&
-                Objects.equals(datePublished, contract.datePublished) &&
-                Objects.equals(documentType, contract.documentType) &&
-                Objects.equals(dateModified, contract.dateModified) &&
-                Objects.equals(relatedItem, contract.relatedItem);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uuid, hash, language, description, format, url, title, documentOf, datePublished, documentType, dateModified, relatedItem);
-    }
 }

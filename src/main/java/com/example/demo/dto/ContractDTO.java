@@ -2,6 +2,8 @@ package com.example.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class ContractDTO {
 
     @JsonProperty("id")
@@ -134,6 +136,19 @@ public class ContractDTO {
 
     public void setRelatedItem(String relatedItem) {
         this.relatedItem = relatedItem;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContractDTO that = (ContractDTO) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

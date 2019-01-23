@@ -1,12 +1,12 @@
 package com.example.demo.client;
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Value;
 
 public class RestClient {
 
     private OkHttpClient httpClient = new OkHttpClient();
 
     public String doGetRequest(String path) {
+
         Request request = new Request.Builder()
                 .url(path)
                 .build();
