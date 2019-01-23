@@ -4,14 +4,11 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class RestClient {
 
-    @Value(value = "${externalUrlContractDoc}")
-    private String externalUrl;
-
     private OkHttpClient httpClient = new OkHttpClient();
 
     public String doGetRequest(String path) {
         Request request = new Request.Builder()
-                .url(String.format(externalUrl,path))
+                .url(path)
                 .build();
         return executeResponse(request, path);
     }

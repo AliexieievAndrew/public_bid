@@ -11,9 +11,15 @@ import java.util.stream.Collectors;
 
 public class ContractConverter {
 
-    public static Contract convertToEntity (ContractDTO contractDTO) {
+    public static Contract convertToEntity(ContractDTO contractDTO) {
+        if (contractDTO == null || (contractDTO.getId() == null)) {
+            return new Contract();
+        }
+
         ModelMapper modelMapper = new ModelMapper();
         Contract entity = modelMapper.map(contractDTO, Contract.class);
+        System.out.println("проверка " + entity.getUuid());
+
         entity.setUuid(
                 UUID.fromString(contractDTO.getId()
                         .replaceFirst(
@@ -22,11 +28,13 @@ public class ContractConverter {
                         )
                 )
         );
+
         entity.setDatePublished(OffsetDateTime.parse(contractDTO.getDatePublished()));
         entity.setDateModified(OffsetDateTime.parse(contractDTO.getDateModified()));
         return entity;
     }
-    public static List<Contract> convertToEntity (List<ContractDTO> contractDTOList) {
+
+    public static List<Contract> convertToEntity(List<ContractDTO> contractDTOList) {
         return contractDTOList
                 .stream()
                 .map(e -> convertToEntity(e)).collect(Collectors.toList());

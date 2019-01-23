@@ -18,7 +18,7 @@ import java.util.List;
 public class GetContractController {
 
     @Autowired
-    ContractService contractService;
+    private ContractService contractService;
 
     @GetMapping(value = {"/", "/home", "/index"})
     public String index(Model model) {
@@ -29,6 +29,7 @@ public class GetContractController {
 
     @GetMapping(value = {"/getInfo"})
     public String getInfo(@RequestParam(value = "path") String path) {
+
         try {
             List<ContractDTO> founded = contractService.findAllInExternalResource(path);
             contractService.saveAll(ContractConverter.convertToEntity(founded));

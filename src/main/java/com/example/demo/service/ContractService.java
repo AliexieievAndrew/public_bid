@@ -8,6 +8,7 @@ import com.example.demo.repository.ContractRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,15 +23,19 @@ public class ContractService {
     @Autowired
     private ContractRepository contractRepository;
 
+    @Value(value = "${externalUrlContractDoc}")
+    private String externalUrl;
+
     public List<ContractDTO> findAllInExternalResource(String path) throws IOException {
 
-        String contractResponse = restClient.doGetRequest(path);
+        String contractResponse = restClient.doGetRequest(String.format(externalUrl,path));
         return this.parseContractJSONResponse(contractResponse);
     }
 
     public void saveAll(List<Contract> contracts){
         contractRepository.saveAll(contracts);
     }
+
     public Iterable<Contract> findAll() {
         return contractRepository.findAll();
     }
