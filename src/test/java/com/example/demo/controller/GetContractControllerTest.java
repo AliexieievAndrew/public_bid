@@ -10,13 +10,14 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
-import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -42,53 +43,84 @@ public class GetContractControllerTest {
     private GetContractController getContractControllerTest;
 
     private List<Contract> contractList;
-    private List<ContractDTO> contractDTOList;
 
-    private final String requestParam = "23567e24f52746ef92c470be6059d193";
+    private List<ContractDTO> prepareContractDTOList() {
+        return new ArrayList<>(){{
+            add(new ContractDTO()
+                    .setId("a5ef4c3063d94b10a13630fa9cca90b9")
+                    .setDatePublished("2018-09-19T13:13:07.776613+03:00")
+                    .setDateModified("2018-09-19T13:13:07.776633+03:00")
+            );
+            add(new ContractDTO()
+                    .setId("4f6d6dc59d1844bb80143ccc2e727a2f")
+                    .setDatePublished("2018-09-19T13:12:21.136232+03:00")
+                    .setDateModified("2018-09-19T13:12:21.136263+03:00")
+            );
+
+        }};
+    }
+
+    @Value(value = "{$requestParam}")
+    private String requestParam;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() {
         initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(getContractControllerTest).build();
 
-        contractList = Arrays.asList(new Contract());
-        contractDTOList = Arrays.asList(new ContractDTO());
+        contractList = Collections.singletonList(new Contract());;
 
         when(mockContractService.findAll())
                 .thenReturn(contractList);
         when(mockContractService.findAllInExternalResource(requestParam))
-                .thenReturn(contractDTOList);
+                .thenReturn(prepareContractDTOList());
+        when(mockContractService.saveAll(ContractConverter.convertToEntityList(prepareContractDTOList())))
+                .thenReturn(ContractConverter.convertToEntityList(prepareContractDTOList()));
     }
 
     @Test
-    public void testIndexReturnStringAndVerify(){
+    public void testIndex_Match_Returning_String(){
         String expectedResult = "index";
         String result = getContractControllerTest.index(model);
-        assertEquals(expectedResult,result);
 
-        verify(mockContractService,times(1)).findAll();
+        assertEquals(expectedResult, result);
+        verify(mockContractService, times(1)).findAll();
     }
 
     @Test
-    public void testIndexStatusOk() throws Exception {
+    public void testIndex_StatusIsOk_And_Check_ForwardedURL() throws Exception {
         mockMvc.perform(get("/home"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(forwardedUrl("index"));
+
+        verify(mockContractService, times(1)).findAll();
     }
 
     @Test
-    public void testGetInfoReturnStringAndVerify() throws IOException {
+    public void testGetInfo_Match_Returning_String() {
+        System.out.println();
         String expectedResult = "redirect:/";
-
         String result = getContractControllerTest.getInfo(requestParam);
+
         assertEquals(expectedResult,result);
-        verify(mockContractService,times(1)).findAllInExternalResource(requestParam);
+
+        verify(mockContractService,times(1))
+                .findAllInExternalResource(requestParam);
+        verify(mockContractService,times(1))
+                .saveAll(ContractConverter.convertToEntityList(prepareContractDTOList()));
     }
+
     @Test
-    public void testGetInfoStatusRedirect() throws Exception {
+    public void testGetInfo_StatusRedirect() throws Exception {
         mockMvc.perform(get("/getInfo")
                 .param("path",requestParam))
                 .andDo(print())
                 .andExpect(status().is(302));
+
+        verify(mockContractService,times(1))
+                .findAllInExternalResource(requestParam);
+        verify(mockContractService,times(1))
+                .saveAll(ContractConverter.convertToEntityList(prepareContractDTOList()));
     }
 }

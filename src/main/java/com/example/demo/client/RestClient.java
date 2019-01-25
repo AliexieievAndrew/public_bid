@@ -1,11 +1,16 @@
 package com.example.demo.client;
 import okhttp3.*;
+import org.apache.commons.lang.StringUtils;
 
 public class RestClient {
 
     private OkHttpClient httpClient = new OkHttpClient();
 
     public String doGetRequest(String path) {
+
+        if(StringUtils.isBlank(path)) {
+            throw new IllegalArgumentException("Path can not be empty");
+        }
 
         Request request = new Request.Builder()
                 .url(path)

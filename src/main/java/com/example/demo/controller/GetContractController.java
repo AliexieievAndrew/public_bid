@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -26,16 +25,10 @@ public class GetContractController {
         return "index";
     }
 
-
     @GetMapping(value = {"/getInfo"})
     public String getInfo(@RequestParam(value = "path") String path) {
-
-        try {
-            List<ContractDTO> founded = contractService.findAllInExternalResource(path);
-            contractService.saveAll(ContractConverter.convertToEntity(founded));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List<ContractDTO> founded = contractService.findAllInExternalResource(path);
+        contractService.saveAll(ContractConverter.convertToEntityList(founded));
         return "redirect:/";
     }
 }

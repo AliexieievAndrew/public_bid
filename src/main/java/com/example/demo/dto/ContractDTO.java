@@ -46,96 +46,108 @@ public class ContractDTO {
         return id;
     }
 
-    public void setId(String id) {
+    public ContractDTO setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getHash() {
         return hash;
     }
 
-    public void setHash(String hash) {
+    public ContractDTO setHash(String hash) {
         this.hash = hash;
+        return this;
     }
 
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public ContractDTO setLanguage(String language) {
         this.language = language;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public ContractDTO setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public String getFormat() {
         return format;
     }
 
-    public void setFormat(String format) {
+    public ContractDTO setFormat(String format) {
         this.format = format;
+        return this;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public ContractDTO setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public ContractDTO setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getDocumentOf() {
         return documentOf;
     }
 
-    public void setDocumentOf(String documentOf) {
+    public ContractDTO setDocumentOf(String documentOf) {
         this.documentOf = documentOf;
+        return this;
     }
 
     public String getDatePublished() {
         return datePublished;
     }
 
-    public void setDatePublished(String datePublished) {
+    public ContractDTO setDatePublished(String datePublished) {
         this.datePublished = datePublished;
+        return this;
     }
 
     public String getDocumentType() {
         return documentType;
     }
 
-    public void setDocumentType(String documentType) {
+    public ContractDTO setDocumentType(String documentType) {
         this.documentType = documentType;
+        return this;
     }
 
     public String getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(String dateModified) {
+    public ContractDTO setDateModified(String dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
     public String getRelatedItem() {
         return relatedItem;
     }
 
-    public void setRelatedItem(String relatedItem) {
+    public ContractDTO setRelatedItem(String relatedItem) {
         this.relatedItem = relatedItem;
+        return this;
     }
 
     @Override

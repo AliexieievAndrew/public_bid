@@ -21,10 +21,8 @@ public class Contract {
     @Column(name = "language")
     private String language;
 
-
     @Column(name = "description")
     private String description;
-
 
     @Column(name = "format")
     private String format;
@@ -54,96 +52,108 @@ public class Contract {
         return uuid;
     }
 
-    public void setUuid(UUID uuid) {
+    public Contract setUuid(UUID uuid) {
         this.uuid = uuid;
+        return this;
     }
 
     public String getHash() {
         return hash;
     }
 
-    public void setHash(String hash) {
+    public Contract setHash(String hash) {
         this.hash = hash;
+        return this;
     }
 
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public Contract setLanguage(String language) {
         this.language = language;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Contract setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public String getFormat() {
         return format;
     }
 
-    public void setFormat(String format) {
+    public Contract setFormat(String format) {
         this.format = format;
+        return this;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public Contract setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Contract setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getDocumentOf() {
         return documentOf;
     }
 
-    public void setDocumentOf(String documentOf) {
+    public Contract setDocumentOf(String documentOf) {
         this.documentOf = documentOf;
+        return this;
     }
 
     public OffsetDateTime getDatePublished() {
         return datePublished;
     }
 
-    public void setDatePublished(OffsetDateTime datePublished) {
+    public Contract setDatePublished(OffsetDateTime datePublished) {
         this.datePublished = datePublished;
+        return this;
     }
 
     public String getDocumentType() {
         return documentType;
     }
 
-    public void setDocumentType(String documentType) {
+    public Contract setDocumentType(String documentType) {
         this.documentType = documentType;
+        return this;
     }
 
     public OffsetDateTime getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(OffsetDateTime dateModified) {
+    public Contract setDateModified(OffsetDateTime dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
     public String getRelatedItem() {
         return relatedItem;
     }
 
-    public void setRelatedItem(String relatedItem) {
+    public Contract setRelatedItem(String relatedItem) {
         this.relatedItem = relatedItem;
+        return this;
     }
 
     @Override
@@ -162,5 +172,18 @@ public class Contract {
                 ", dateModified=" + dateModified +
                 ", relatedItem='" + relatedItem + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contract contract = (Contract) o;
+        return Objects.equals(uuid, contract.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid);
     }
 }
