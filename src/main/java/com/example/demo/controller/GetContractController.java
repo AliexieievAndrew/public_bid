@@ -1,16 +1,12 @@
 package com.example.demo.controller;
 
-import com.example.demo.converter.ContractConverter;
-import com.example.demo.dto.ContractDTO;
+import com.example.demo.dto.ResponseContractDTO;
+import com.example.demo.entity.Contract;
 import com.example.demo.service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
@@ -25,10 +21,16 @@ public class GetContractController {
         return "index";
     }
 
-    @GetMapping(value = {"/getInfo"})
+    @GetMapping("/addInfo")
     public String getInfo(@RequestParam(value = "path") String path) {
-        List<ContractDTO> founded = contractService.findAllInExternalResource(path);
-        contractService.saveAll(ContractConverter.convertToEntityList(founded));
+        ResponseContractDTO allInExternalResource = contractService.processExternalResource(path);
+        contractService.saveAll(allInExternalResource.getData());
         return "redirect:/";
+    }
+
+    @GetMapping("/getAll")
+    @ResponseBody
+    public Iterable<Contract> findAll() {
+        return contractService.findAll();
     }
 }

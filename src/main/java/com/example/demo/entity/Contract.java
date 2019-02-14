@@ -1,31 +1,35 @@
-package com.example.demo.pojo;
-import org.hibernate.annotations.Type;
+package com.example.demo.entity;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "contract")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Contract {
 
     @Id
     @Column(name = "id", updatable = false, nullable = false, unique = true)
-    @Type(type="uuid-char")
-    private UUID uuid;
+    @JsonDeserialize(using = UuidDeserializer.class)
+    private UUID id;
 
     @Column(name = "hash")
     private String hash;
 
     @Column(name = "language")
-    private String language;
+    @Enumerated(EnumType.STRING)
+    private Language language;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "format")
-    private String format;
+    @Enumerated(EnumType.STRING)
+    private Format format;
 
     @Column(name = "url")
     private String url;
@@ -34,13 +38,15 @@ public class Contract {
     private String title;
 
     @Column(name = "document_of")
-    private String documentOf;
+    @Enumerated(EnumType.STRING)
+    private DocumentOf documentOf;
 
     @Column(name = "date_published")
     private OffsetDateTime datePublished;
 
     @Column(name = "document_type")
-    private String documentType;
+    @Enumerated(EnumType.STRING)
+    private DocumentType documentType;
 
     @Column(name = "date_modified")
     private OffsetDateTime dateModified;
@@ -48,12 +54,12 @@ public class Contract {
     @Column(name = "related_item")
     private String relatedItem;
 
-    public UUID getUuid() {
-        return uuid;
+    public UUID getId() {
+        return id;
     }
 
-    public Contract setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public Contract setId(UUID id) {
+        this.id = id;
         return this;
     }
 
@@ -66,11 +72,11 @@ public class Contract {
         return this;
     }
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
-    public Contract setLanguage(String language) {
+    public Contract setLanguage(Language language) {
         this.language = language;
         return this;
     }
@@ -84,11 +90,11 @@ public class Contract {
         return this;
     }
 
-    public String getFormat() {
+    public Format getFormat() {
         return format;
     }
 
-    public Contract setFormat(String format) {
+    public Contract setFormat(Format format) {
         this.format = format;
         return this;
     }
@@ -111,11 +117,11 @@ public class Contract {
         return this;
     }
 
-    public String getDocumentOf() {
+    public DocumentOf getDocumentOf() {
         return documentOf;
     }
 
-    public Contract setDocumentOf(String documentOf) {
+    public Contract setDocumentOf(DocumentOf documentOf) {
         this.documentOf = documentOf;
         return this;
     }
@@ -129,11 +135,11 @@ public class Contract {
         return this;
     }
 
-    public String getDocumentType() {
+    public DocumentType getDocumentType() {
         return documentType;
     }
 
-    public Contract setDocumentType(String documentType) {
+    public Contract setDocumentType(DocumentType documentType) {
         this.documentType = documentType;
         return this;
     }
@@ -159,31 +165,18 @@ public class Contract {
     @Override
     public String toString() {
         return "Contract{" +
-                "uuid=" + uuid +
+                "id=" + id +
                 ", hash='" + hash + '\'' +
-                ", language='" + language + '\'' +
+                ", language=" + language +
                 ", description='" + description + '\'' +
-                ", format='" + format + '\'' +
+                ", format=" + format +
                 ", url='" + url + '\'' +
                 ", title='" + title + '\'' +
-                ", documentOf='" + documentOf + '\'' +
+                ", documentOf=" + documentOf +
                 ", datePublished=" + datePublished +
-                ", documentType='" + documentType + '\'' +
+                ", documentType=" + documentType +
                 ", dateModified=" + dateModified +
                 ", relatedItem='" + relatedItem + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Contract contract = (Contract) o;
-        return Objects.equals(uuid, contract.uuid);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uuid);
     }
 }
