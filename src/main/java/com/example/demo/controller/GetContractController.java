@@ -22,7 +22,7 @@ public class GetContractController {
     }
 
     @GetMapping("/addInfo")
-    public String getInfo(@RequestParam(value = "path") String path) {
+    public String addInfo(@RequestParam(value = "path") String path) {
         ResponseContractDTO allInExternalResource = contractService.processExternalResource(path);
         contractService.saveAll(allInExternalResource.getData());
         return "redirect:/";

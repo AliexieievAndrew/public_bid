@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -178,5 +179,18 @@ public class Contract {
                 ", dateModified=" + dateModified +
                 ", relatedItem='" + relatedItem + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contract contract = (Contract) o;
+        return Objects.equals(id, contract.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
